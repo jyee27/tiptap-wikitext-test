@@ -3,6 +3,7 @@ import React from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import './styles.scss'
+import serializer from './to_wiki';
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -160,10 +161,18 @@ export default () => {
     `,
   })
 
+  let handleSubmit = () => {
+    let output = serializer.serialize(editor.state.doc);
+    console.log(output);
+  }
+
   return (
     <div>
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
+      <button className="submitButton" onClick={handleSubmit}>
+        {'Submit'}
+      </button>
     </div>
   )
 }
